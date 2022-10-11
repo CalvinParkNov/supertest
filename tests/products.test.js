@@ -23,13 +23,23 @@ describe("GET /api/products", () => {
 });
 
 describe("POST /api/products", () => {
-  it("제품 입력하기", async () => {
+  it("제품 1개 생성하기", async () => {
     const res = await request(app).post("/api/products").send({
-      name: "iPhone 14 pro",
-      price: 2000,
-      description: "iPhone 14 pro from Apple",
+      name: "iPhone 14 pro MAX testing",
+      price: 1009,
+      description: "iPhone 14 pro max from apple",
     });
     expect(res.statusCode).toBe(201);
-    expect(res.body.name).toBe("iPhone 14 pro");
+    expect(res.body.description).toBe("iPhone 14 pro max from apple");
+  });
+});
+
+describe("GET /api/products/:id", () => {
+  it(":id에 해당되는 제품 1개만 불러오기", async () => {
+    const res = await request(app).get(
+      "/api/products/6345963a1f066d9becace963"
+    );
+    expect(res.statusCode).toBe(200);
+    expect(res.body.name).toBe("iPhone 14 pro MAX testing");
   });
 });
