@@ -37,9 +37,32 @@ describe("POST /api/products", () => {
 describe("GET /api/products/:id", () => {
   it(":id에 해당되는 제품 1개만 불러오기", async () => {
     const res = await request(app).get(
-      "/api/products/6345963a1f066d9becace963"
+      "/api/products/63458bd2a51b00c023afb467"
     );
     expect(res.statusCode).toBe(200);
-    expect(res.body.name).toBe("iPhone 14 pro MAX testing");
+    expect(res.body.name).toBe("iPhone14 pro MAX");
+  });
+});
+
+describe("PATCH /api/products/:id", () => {
+  it(":id에 해당되는 제품 update하기", async () => {
+    const res = await request(app)
+      .patch("/api/products/63459064aa00232faac01cea")
+      .send({
+        name: "iPhone 14 pro MAX testing to iPhone 15 pro",
+        price: 2000,
+        description: "updated from iPhone 14 pro max to iPhone 15 pro",
+      });
+    expect(res.statusCode).toBe(200);
+    expect(res.body.price).toBe(2000);
+  });
+});
+
+describe("DELETE /api/products/:id", () => {
+  it(":id에 해당하는 제품을 삭제하기", async () => {
+    const res = await request(app).delete(
+      "/api/products/634594fe7bc074d93b20e7c5"
+    );
+    expect(res.statusCode).toBe(200);
   });
 });
